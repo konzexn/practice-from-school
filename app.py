@@ -1,6 +1,25 @@
 from flask import Flask, render_template
 import sqlite3
 
+conn = sqlite3.connect('personal_info.db')
+c = conn.cursor()
+
+# Create tables
+c.execute('''CREATE TABLE if not exists personal_info (name TEXT, age INTEGER, occupation TEXT, bio TEXT)''')
+c.execute('''CREATE TABLE if not exists favorite_foods (id INTEGER PRIMARY KEY, name TEXT, image_url TEXT)''')
+c.execute('''CREATE TABLE if not exists favorite_animals (id INTEGER PRIMARY KEY, name TEXT, image_url TEXT)''')
+
+# Insert data
+c.execute("INSERT INTO personal_info (name, age, occupation, bio) VALUES ('Erwin', 29, 'Student', 'I like playing games.')")
+c.execute("INSERT INTO favorite_foods (name, image_url) VALUES ('Pizza', 'https://example.com/pizza.jpg')")
+c.execute("INSERT INTO favorite_foods (name, image_url) VALUES ('Sushi', 'https://example.com/sushi.jpg')")
+c.execute("INSERT INTO favorite_animals (name, image_url) VALUES ('Cat', 'https://example.com/cat.jpg')")
+c.execute("INSERT INTO favorite_animals (name, image_url) VALUES ('Dog', 'https://example.com/dog.jpg')")
+
+conn.commit()
+conn.close()
+
+
 app = Flask(__name__)
 
 def get_db_connection():

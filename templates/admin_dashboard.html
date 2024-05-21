@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        h2 {
+            color: #666;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        form {
+            display: inline;
+        }
+        
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <h2>Manage Users</h2>
+    <ul>
+        {% for user in users %}
+            <li>{{ user[0] }} - {{ user[1] }} 
+                <form method="post" action="{{ url_for('manage_users') }}">
+                    <input type="hidden" name="username" value="{{ user[0] }}">
+                    <input type="submit" name="action" value="delete">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>Manage Products</h2>
+    <ul>
+        {% for product in products %}
+            <li>{{ product[1] }} - ${{ product[2] }} 
+                <form method="post" action="{{ url_for('manage_products') }}">
+                    <input type="hidden" name="product_id" value="{{ product[0] }}">
+                    <input type="submit" name="action" value="delete">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>Transaction History</h2>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction[1] }} bought {{ transaction[2] }} for ${{ transaction[3] }} on {{ transaction[4] }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
