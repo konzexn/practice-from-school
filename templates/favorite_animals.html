@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorite Animals</title>
+</head>
+<body>
+    <h1>Favorite Animals</h1>
+    <ul>
+        {% for animal in favorite_animals %}
+        <li>
+            <h2>{{ animal['name'] }}</h2>
+            <img src="{{ animal['image_url'] }}" alt="{{ animal['name'] }}" width="200">
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>
